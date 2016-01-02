@@ -1,0 +1,11 @@
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+
+*/KeyProider.java
+app/src/main/java/com/udacity/mozgul/popularmovies/Application/KeyProvider.java
