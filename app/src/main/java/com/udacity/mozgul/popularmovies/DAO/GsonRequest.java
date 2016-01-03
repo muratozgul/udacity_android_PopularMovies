@@ -7,6 +7,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import java.io.UnsupportedEncodingException;
@@ -67,8 +70,13 @@ public class GsonRequest<T> extends Request<T> {
             String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
             T parsedObject = null;
 
+
+            JsonObject jobject = new JsonParser().parse(json).getAsJsonObject();
+            JsonArray jarray = jobject.getAsJsonArray("results");
+
             if(isList){
-                parsedObject = gson.fromJson(json, listType);
+                //parsedObject = gson.fromJson(json, listType);
+                parsedObject = gson.fromJson(jarray, listType);
             } else {
                 parsedObject = gson.fromJson(json, clazz);
             }

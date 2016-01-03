@@ -41,6 +41,35 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         this.context = context;
     }
 
+    public MovieAdapter(Context context) {
+        this.movies = new ArrayList<Movie>();
+        this.context = context;
+    }
+
+    //############################
+    //Getters & Setters
+    //############################
+
+    public ArrayList<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(ArrayList<Movie> movies) {
+        this.movies = movies;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+
+    //############################
+    //Override
+    //############################
 
     // Create new views (invoked by the layout manager)
     @Override
@@ -53,16 +82,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return mvh;
     }
 
-
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(MovieViewHolder mvh, int position) {
         Movie movie = getMovie(position);
-
-        Log.d(TAG, "Length: " + Integer.toString(movies.size()));
-        Log.d(TAG, "Position: " + Integer.toString(position));
-        Log.d(TAG, "Movie: " + movie.toString());
-        Log.d(TAG, "Poster: " + movie.getPosterUrl());
 
         Picasso.with(context).load(movie.getPosterUrl()).fit().centerCrop().into(mvh.imageView);
     }

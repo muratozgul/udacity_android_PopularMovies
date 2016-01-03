@@ -89,7 +89,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         singleton = this;
-        apiKey = getApiKey();
+        apiKey = KeyProvider.getApiKey();
     }
 
     @Override

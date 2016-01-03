@@ -6,12 +6,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.udacity.mozgul.popularmovies.Adapters.MovieAdapter;
 import com.udacity.mozgul.popularmovies.DAO.IMovieCallback;
+import com.udacity.mozgul.popularmovies.DAO.MovieDAO;
 import com.udacity.mozgul.popularmovies.Models.Movie;
 import com.udacity.mozgul.popularmovies.R;
 
@@ -23,10 +25,8 @@ public class MovieGridFragment extends Fragment implements IMovieCallback {
 
     private static final String KEY = "movies";
 
-    private ArrayList<Movie> movies;
-
     private RecyclerView moviesRecyclerView;
-    private RecyclerView.Adapter moviesAdapter;
+    private MovieAdapter moviesAdapter;
     private RecyclerView.LayoutManager moviesLayoutManager;
 
     private Context context;
@@ -49,7 +49,7 @@ public class MovieGridFragment extends Fragment implements IMovieCallback {
 
     @Override
     public void findPopularMoviesCb(ArrayList<Movie> movies) {
-        this.movies = movies;
+        this.moviesAdapter.setMovies(movies);
         this.moviesAdapter.notifyDataSetChanged();
     }
 
@@ -81,20 +81,15 @@ public class MovieGridFragment extends Fragment implements IMovieCallback {
 
         context = getActivity();
 
-        movies = new ArrayList<Movie>();
-
-        //initialize movies to empty list
-        movies.add(new Movie(123L, "Indiana Jones"));
-        movies.add(new Movie(124L, "Indiana Jones2"));
-        movies.add(new Movie(125L, "Indiana Jones3"));
-
         moviesRecyclerView = (RecyclerView) view.findViewById(R.id.moviesRecyclerView);
 
         moviesLayoutManager = new GridLayoutManager(context, 2);
         moviesRecyclerView.setLayoutManager(moviesLayoutManager);
 
-        moviesAdapter = new MovieAdapter(movies, context);
+        moviesAdapter = new MovieAdapter(context);
         moviesRecyclerView.setAdapter(moviesAdapter);
+
+        MovieDAO.findAllPopular(this);
     }
 
     @Override

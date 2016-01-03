@@ -52,7 +52,7 @@ public class MovieDAO {
         Response.Listener<ArrayList<Movie>> responseListener = new Response.Listener<ArrayList<Movie>>() {
             @Override
             public void onResponse(ArrayList<Movie> response) {
-                Log.d(TAG, response.toString());
+                Log.d(TAG, Integer.toString(response.size()));
                 cbInterface.findPopularMoviesCb(response);
             }
         };
