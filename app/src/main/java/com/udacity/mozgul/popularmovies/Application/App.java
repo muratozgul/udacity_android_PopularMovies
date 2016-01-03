@@ -4,6 +4,7 @@ package com.udacity.mozgul.popularmovies.Application;
 import android.app.Application;
 import android.content.res.Configuration;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,6 +18,7 @@ public class App extends Application {
     private RequestQueue mRequestQueue;
 
     private final String movieApiUrl = "https://api.themoviedb.org/3";
+    private final String imageApiUrl = "http://image.tmdb.org/t/p/w500";
 
     private String apiKey;
 
@@ -29,9 +31,15 @@ public class App extends Application {
         return movieApiUrl;
     }
 
+    public String getImageApiUrl() {
+        return imageApiUrl;
+    }
+
     public String getApiKey() {
         return apiKey;
     }
+
+
 
     public static synchronized App getInstance(){
         return singleton;

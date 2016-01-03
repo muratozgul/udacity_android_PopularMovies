@@ -3,10 +3,13 @@ package com.udacity.mozgul.popularmovies.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
 import com.udacity.mozgul.popularmovies.Models.Movie;
 import com.udacity.mozgul.popularmovies.R;
 
@@ -18,9 +21,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private Context context;
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public ImageView imageView;
 
         public MovieViewHolder(View itemView){
             super(itemView);
+
+            imageView = (ImageView) itemView.findViewById(R.id.movieThumbnailImageView);
         }
 
         @Override
@@ -50,9 +56,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(MovieViewHolder orderViewHolder, int position) {
+    public void onBindViewHolder(MovieViewHolder mvh, int position) {
         Movie movie = getMovie(position);
 
+        Log.d(TAG, "Length: " + Integer.toString(movies.size()));
+        Log.d(TAG, "Position: " + Integer.toString(position));
+        Log.d(TAG, "Movie: " + movie.toString());
+        Log.d(TAG, "Poster: " + movie.getPosterUrl());
+
+        Picasso.with(context).load(movie.getPosterUrl()).fit().centerCrop().into(mvh.imageView);
     }
 
     @Override

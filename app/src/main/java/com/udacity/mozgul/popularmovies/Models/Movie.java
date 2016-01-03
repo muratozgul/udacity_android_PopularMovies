@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.udacity.mozgul.popularmovies.Application.App;
 
 import java.io.Serializable;
 
@@ -49,6 +50,8 @@ public class Movie implements Serializable, Parcelable {
     public Movie(long id, String title) {
         this.id = id;
         this.title = title;
+        this.overview = "Placeholder Overview";
+        this.posterPath = "/fYzpM9GmpBlIC893fNjoWCwE24H.jpg";
     }
 
     public Movie(){}
@@ -84,6 +87,15 @@ public class Movie implements Serializable, Parcelable {
 
     public String getPosterPath() {
         return posterPath;
+    }
+
+    public String getPosterUrl() {
+        //http://image.tmdb.org/t/p/w500/fYzpM9GmpBlIC893fNjoWCwE24H.jpg
+        StringBuilder url = new StringBuilder()
+                .append(App.getInstance().getImageApiUrl())
+                .append(this.posterPath);
+
+        return url.toString();
     }
 
     public void setPosterPath(String posterPath) {

@@ -1,19 +1,17 @@
 package com.udacity.mozgul.popularmovies.Fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.udacity.mozgul.popularmovies.Adapters.MovieAdapter;
 import com.udacity.mozgul.popularmovies.DAO.IMovieCallback;
-import com.udacity.mozgul.popularmovies.DAO.MovieDAO;
 import com.udacity.mozgul.popularmovies.Models.Movie;
 import com.udacity.mozgul.popularmovies.R;
 
@@ -40,9 +38,6 @@ public class MovieGridFragment extends Fragment implements IMovieCallback {
 
     public static MovieGridFragment newInstance(ArrayList<Movie> movies) {
         MovieGridFragment fragment = new MovieGridFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelableArrayList(KEY, movies);
-//        fragment.setArguments(bundle);
 
         return fragment;
     }
@@ -54,7 +49,7 @@ public class MovieGridFragment extends Fragment implements IMovieCallback {
 
     @Override
     public void findPopularMoviesCb(ArrayList<Movie> movies) {
-        this.movies.addAll(movies);
+        this.movies = movies;
         this.moviesAdapter.notifyDataSetChanged();
     }
 
@@ -71,10 +66,6 @@ public class MovieGridFragment extends Fragment implements IMovieCallback {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        MovieDAO.findAllPopular(this);
-
-//        Bundle bundle = getArguments();
-//        movies = bundle.getParcelableArrayList(KEY);
     }
 
     @Override
@@ -90,15 +81,16 @@ public class MovieGridFragment extends Fragment implements IMovieCallback {
 
         context = getActivity();
 
-        //initialize movies to empty list
         movies = new ArrayList<Movie>();
+
+        //initialize movies to empty list
         movies.add(new Movie(123L, "Indiana Jones"));
         movies.add(new Movie(124L, "Indiana Jones2"));
         movies.add(new Movie(125L, "Indiana Jones3"));
 
         moviesRecyclerView = (RecyclerView) view.findViewById(R.id.moviesRecyclerView);
 
-        moviesLayoutManager = new LinearLayoutManager(context);
+        moviesLayoutManager = new GridLayoutManager(context, 2);
         moviesRecyclerView.setLayoutManager(moviesLayoutManager);
 
         moviesAdapter = new MovieAdapter(movies, context);
