@@ -46,6 +46,11 @@ public class Movie implements Serializable, Parcelable {
         this.voteAverage = voteAverage;
     }
 
+    public Movie(long id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     public Movie(){}
 
 
